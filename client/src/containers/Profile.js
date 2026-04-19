@@ -61,7 +61,9 @@ class Profile extends Component {
       });
     } else {
       try {
-        const response = await axios.get('http://localhost:3003/findUser', {
+        const API_URL =
+          process.env.REACT_APP_API_URL || 'http://localhost:3003';
+        const response = await axios.get(`${API_URL}/findUser`, {
           params: {
             username,
           },
@@ -101,7 +103,7 @@ class Profile extends Component {
 
     e.preventDefault();
     try {
-      const response = await axios.delete('http://localhost:3003/deleteUser', {
+      const response = await axios.delete(`${API_URL}/deleteUser`, {
         params: {
           username,
         },

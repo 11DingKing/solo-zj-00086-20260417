@@ -35,7 +35,7 @@ class Register extends Component {
     };
   }
 
-  handleChange = name => (event) => {
+  handleChange = (name) => (event) => {
     this.setState({
       [name]: event.target.value,
     });
@@ -43,9 +43,7 @@ class Register extends Component {
 
   registerUser = async (e) => {
     e.preventDefault();
-    const {
- first_name, last_name, username, password, email 
-} = this.state;
+    const { first_name, last_name, username, password, email } = this.state;
     if (username === '' || password === '' || email === '') {
       this.setState({
         showError: true,
@@ -54,16 +52,15 @@ class Register extends Component {
       });
     } else {
       try {
-        const response = await axios.post(
-          'http://localhost:3003/registerUser',
-          {
-            first_name,
-            last_name,
-            email,
-            username,
-            password,
-          },
-        );
+        const API_URL =
+          process.env.REACT_APP_API_URL || 'http://localhost:3003';
+        const response = await axios.post(`${API_URL}/registerUser`, {
+          first_name,
+          last_name,
+          email,
+          username,
+          password,
+        });
         this.setState({
           messageFromServer: response.data.message,
           showError: false,

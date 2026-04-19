@@ -32,7 +32,7 @@ class Login extends Component {
     };
   }
 
-  handleChange = name => (event) => {
+  handleChange = (name) => (event) => {
     this.setState({
       [name]: event.target.value,
     });
@@ -49,7 +49,9 @@ class Login extends Component {
       });
     } else {
       try {
-        const response = await axios.post('http://localhost:3003/loginUser', {
+        const API_URL =
+          process.env.REACT_APP_API_URL || 'http://localhost:3003';
+        const response = await axios.post(`${API_URL}/loginUser`, {
           username,
           password,
         });
@@ -62,8 +64,8 @@ class Login extends Component {
       } catch (error) {
         console.error(error.response.data);
         if (
-          error.response.data === 'bad username'
-          || error.response.data === 'passwords do not match'
+          error.response.data === 'bad username' ||
+          error.response.data === 'passwords do not match'
         ) {
           this.setState({
             showError: true,
@@ -75,13 +77,8 @@ class Login extends Component {
   };
 
   render() {
-    const {
-      username,
-      password,
-      showError,
-      loggedIn,
-      showNullError,
-    } = this.state;
+    const { username, password, showError, loggedIn, showNullError } =
+      this.state;
     if (!loggedIn) {
       return (
         <div>

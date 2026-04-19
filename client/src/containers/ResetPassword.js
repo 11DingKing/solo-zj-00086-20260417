@@ -44,7 +44,8 @@ export default class ResetPassword extends Component {
       },
     } = this.props;
     try {
-      const response = await axios.get('http://localhost:3003/reset', {
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3003';
+      const response = await axios.get(`${API_URL}/reset`, {
         params: {
           resetPasswordToken: token,
         },
@@ -68,7 +69,7 @@ export default class ResetPassword extends Component {
     }
   }
 
-  handleChange = name => (event) => {
+  handleChange = (name) => (event) => {
     this.setState({
       [name]: event.target.value,
     });
@@ -83,14 +84,11 @@ export default class ResetPassword extends Component {
       },
     } = this.props;
     try {
-      const response = await axios.put(
-        'http://localhost:3003/updatePasswordViaEmail',
-        {
-          username,
-          password,
-          resetPasswordToken: token,
-        },
-      );
+      const response = await axios.put(`${API_URL}/updatePasswordViaEmail`, {
+        username,
+        password,
+        resetPasswordToken: token,
+      });
       console.log(response.data);
       if (response.data.message === 'password updated') {
         this.setState({
@@ -109,9 +107,7 @@ export default class ResetPassword extends Component {
   };
 
   render() {
-    const {
- password, error, isLoading, updated 
-} = this.state;
+    const { password, error, isLoading, updated } = this.state;
 
     if (error) {
       return (

@@ -58,7 +58,8 @@ class UpdateProfile extends Component {
       },
     } = this.props;
     try {
-      const response = await axios.get('http://localhost:3003/findUser', {
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3003';
+      const response = await axios.get(`${API_URL}/findUser`, {
         params: {
           username,
         },
@@ -83,7 +84,7 @@ class UpdateProfile extends Component {
     }
   }
 
-  handleChange = name => (event) => {
+  handleChange = (name) => (event) => {
     this.setState({
       [name]: event.target.value,
     });
@@ -97,13 +98,11 @@ class UpdateProfile extends Component {
         error: true,
       });
     }
-    const {
- first_name, last_name, email, username 
-} = this.state;
+    const { first_name, last_name, email, username } = this.state;
     e.preventDefault();
     try {
       const response = await axios.put(
-        'http://localhost:3003/updateUser',
+        `${API_URL}/updateUser`,
         {
           first_name,
           last_name,

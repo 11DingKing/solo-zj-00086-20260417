@@ -28,7 +28,7 @@ class ForgotPassword extends Component {
     };
   }
 
-  handleChange = name => (event) => {
+  handleChange = (name) => (event) => {
     this.setState({
       [name]: event.target.value,
     });
@@ -45,12 +45,11 @@ class ForgotPassword extends Component {
       });
     } else {
       try {
-        const response = await axios.post(
-          'http://localhost:3003/forgotPassword',
-          {
-            email,
-          },
-        );
+        const API_URL =
+          process.env.REACT_APP_API_URL || 'http://localhost:3003';
+        const response = await axios.post(`${API_URL}/forgotPassword`, {
+          email,
+        });
         console.log(response.data);
         if (response.data === 'recovery email sent') {
           this.setState({
@@ -73,9 +72,7 @@ class ForgotPassword extends Component {
   };
 
   render() {
-    const {
- email, messageFromServer, showNullError, showError 
-} = this.state;
+    const { email, messageFromServer, showNullError, showError } = this.state;
 
     return (
       <div>

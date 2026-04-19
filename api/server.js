@@ -6,10 +6,14 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import passport from 'passport';
 import helmet from 'helmet';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 
 const API_PORT = process.env.API_PORT || 3000;
+const API_HOST = process.env.API_HOST || 'localhost:3003';
 
 const swaggerDefinition = {
   info: {
@@ -17,7 +21,7 @@ const swaggerDefinition = {
     version: '1.0.0',
     description: 'Endpoints to test the user registration routes',
   },
-  host: 'localhost:3003',
+  host: API_HOST,
   basePath: '/',
   securityDefinitions: {
     bearerAuth: {
@@ -43,14 +47,14 @@ app.get('/swagger.json', (req, res) => {
 
 require('./config/passport');
 
-const whitelist = [
-  'http://localhost:3031',
-  'http://localhost:3000',
-  'http://localhost:3003',
-];
+const corsOriginsEnv =
+  process.env.CORS_ORIGINS ||
+  'http://localhost:3031,http://localhost:3000,http://localhost:3003';
+const whitelist = corsOriginsEnv.split(',').map((origin) => origin.trim());
+
 const corsOptions = {
   origin: (origin, callback) => {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));

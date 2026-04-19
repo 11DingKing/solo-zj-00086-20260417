@@ -55,7 +55,9 @@ class UpdatePassword extends Component {
         },
       } = this.props;
       try {
-        const response = await axios.get('http://localhost:3003/findUser', {
+        const API_URL =
+          process.env.REACT_APP_API_URL || 'http://localhost:3003';
+        const response = await axios.get(`${API_URL}/findUser`, {
           params: {
             username,
           },
@@ -77,7 +79,7 @@ class UpdatePassword extends Component {
     }
   }
 
-  handleChange = name => (event) => {
+  handleChange = (name) => (event) => {
     this.setState({
       [name]: event.target.value,
     });
@@ -95,7 +97,7 @@ class UpdatePassword extends Component {
       const { username, password } = this.state;
       try {
         const response = await axios.put(
-          'http://localhost:3003/updatePassword',
+          `${API_URL}/updatePassword`,
           {
             username,
             password,
@@ -124,9 +126,7 @@ class UpdatePassword extends Component {
 
   // eslint-disable-next-line consistent-return
   render() {
-    const {
- username, password, updated, error, loadingUser 
-} = this.state;
+    const { username, password, updated, error, loadingUser } = this.state;
 
     if (error) {
       return (

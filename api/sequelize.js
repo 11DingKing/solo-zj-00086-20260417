@@ -1,10 +1,20 @@
 import Sequelize from 'sequelize';
 import UserModel from './models/user';
+import dotenv from 'dotenv';
 
-const sequelize = new Sequelize('users', 'test', 'test1234', {
-  host: 'db',
-  dialect: 'mysql',
-});
+dotenv.config();
+
+const sequelize = new Sequelize(
+  process.env.DB_NAME || 'users',
+  process.env.DB_USER || 'test',
+  process.env.DB_PASSWORD || 'test1234',
+  {
+    host: process.env.DB_HOST || 'db',
+    port: process.env.DB_PORT || 3306,
+    dialect: 'mysql',
+    logging: process.env.NODE_ENV === 'development' ? console.log : false,
+  },
+);
 
 const User = UserModel(sequelize, Sequelize);
 
