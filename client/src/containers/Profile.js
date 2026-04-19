@@ -79,9 +79,10 @@ class Profile extends Component {
           error: false,
         });
       } catch (error) {
-        console.error(error.response.data);
+        console.error('Profile error:', error);
         this.setState({
           error: true,
+          isLoading: false,
         });
       }
     }
@@ -115,7 +116,7 @@ class Profile extends Component {
         deleted: true,
       });
     } catch (error) {
-      console.error(error.response.data);
+      console.error('Delete user error:', error);
       this.setState({
         error: true,
       });

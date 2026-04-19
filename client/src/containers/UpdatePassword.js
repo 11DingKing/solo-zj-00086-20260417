@@ -70,7 +70,7 @@ class UpdatePassword extends Component {
           error: false,
         });
       } catch (error) {
-        console.log(error.response.data);
+        console.log('Load user error:', error);
         this.setState({
           loadingUser: false,
           error: true,
@@ -114,7 +114,7 @@ class UpdatePassword extends Component {
           });
         }
       } catch (error) {
-        console.log(error.response.data);
+        console.log('Update password error:', error);
         this.setState({
           updated: false,
           error: true,

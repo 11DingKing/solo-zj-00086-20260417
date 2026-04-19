@@ -77,7 +77,7 @@ class UpdateProfile extends Component {
         error: false,
       });
     } catch (error) {
-      console.log(error.response.data);
+      console.log('Load user error:', error);
       this.setState({
         loadingUser: false,
         error: true,
@@ -121,7 +121,7 @@ class UpdateProfile extends Component {
         error: false,
       });
     } catch (error) {
-      console.log(error.response.data);
+      console.log('Update profile error:', error);
       this.setState({
         loadingUser: false,
         error: true,

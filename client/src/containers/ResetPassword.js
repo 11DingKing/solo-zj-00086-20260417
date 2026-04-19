@@ -61,7 +61,7 @@ export default class ResetPassword extends Component {
         });
       }
     } catch (error) {
-      console.log(error.response.data);
+      console.log('Reset password check error:', error);
       this.setState({
         updated: false,
         isLoading: false,
@@ -103,7 +103,11 @@ export default class ResetPassword extends Component {
         });
       }
     } catch (error) {
-      console.log(error.response.data);
+      console.log('Update password error:', error);
+      this.setState({
+        updated: false,
+        error: true,
+      });
     }
   };
 

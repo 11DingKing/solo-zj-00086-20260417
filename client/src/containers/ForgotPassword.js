@@ -59,8 +59,15 @@ class ForgotPassword extends Component {
           });
         }
       } catch (error) {
-        console.error(error.response.data);
-        if (error.response.data === 'email not in db') {
+        console.error('Forgot password error:', error);
+        const errorMessage = error.response?.data;
+        if (errorMessage === 'email not in db') {
+          this.setState({
+            showError: true,
+            messageFromServer: '',
+            showNullError: false,
+          });
+        } else {
           this.setState({
             showError: true,
             messageFromServer: '',

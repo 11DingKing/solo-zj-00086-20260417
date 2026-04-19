@@ -62,14 +62,22 @@ class Login extends Component {
           showNullError: false,
         });
       } catch (error) {
-        console.error(error.response.data);
+        console.error('Login error:', error);
+        const errorMessage = error.response?.data;
         if (
-          error.response.data === 'bad username' ||
-          error.response.data === 'passwords do not match'
+          errorMessage === 'bad username' ||
+          errorMessage === 'passwords do not match'
         ) {
           this.setState({
             showError: true,
             showNullError: false,
+            loggedIn: false,
+          });
+        } else {
+          this.setState({
+            showError: true,
+            showNullError: false,
+            loggedIn: false,
           });
         }
       }

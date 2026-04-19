@@ -68,8 +68,15 @@ class Register extends Component {
           registerError: false,
         });
       } catch (error) {
-        console.error(error.response.data);
-        if (error.response.data === 'username or email already taken') {
+        console.error('Register error:', error);
+        const errorMessage = error.response?.data;
+        if (errorMessage === 'username or email already taken') {
+          this.setState({
+            showError: true,
+            loginError: true,
+            registerError: false,
+          });
+        } else {
           this.setState({
             showError: true,
             loginError: true,
