@@ -63,7 +63,7 @@ class Login extends Component {
         });
       } catch (error) {
         console.error('Login error:', error);
-        const errorMessage = error.response?.data;
+        const errorMessage = error.response && error.response.data;
         if (
           errorMessage === 'bad username' ||
           errorMessage === 'passwords do not match'

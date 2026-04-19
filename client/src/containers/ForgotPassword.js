@@ -60,7 +60,7 @@ class ForgotPassword extends Component {
         }
       } catch (error) {
         console.error('Forgot password error:', error);
-        const errorMessage = error.response?.data;
+        const errorMessage = error.response && error.response.data;
         if (errorMessage === 'email not in db') {
           this.setState({
             showError: true,
