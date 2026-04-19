@@ -21,6 +21,8 @@ import {
   forgotButton,
 } from '../components';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3003';
+
 const loading = {
   margin: '1em',
   fontSize: '24px',
@@ -61,8 +63,6 @@ class Profile extends Component {
       });
     } else {
       try {
-        const API_URL =
-          process.env.REACT_APP_API_URL || 'http://localhost:3003';
         const response = await axios.get(`${API_URL}/findUser`, {
           params: {
             username,

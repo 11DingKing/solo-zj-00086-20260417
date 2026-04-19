@@ -15,6 +15,8 @@ import {
   SubmitButtons,
 } from '../components';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3003';
+
 const loading = {
   margin: '1em',
   fontSize: '24px',
@@ -44,7 +46,6 @@ export default class ResetPassword extends Component {
       },
     } = this.props;
     try {
-      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3003';
       const response = await axios.get(`${API_URL}/reset`, {
         params: {
           resetPasswordToken: token,

@@ -15,6 +15,8 @@ import {
   HeaderBar,
 } from '../components';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3003';
+
 const title = {
   pageTitle: 'Login Screen',
 };
@@ -49,8 +51,6 @@ class Login extends Component {
       });
     } else {
       try {
-        const API_URL =
-          process.env.REACT_APP_API_URL || 'http://localhost:3003';
         const response = await axios.post(`${API_URL}/loginUser`, {
           username,
           password,
